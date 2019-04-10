@@ -14,13 +14,18 @@ function get(item) {
 }
 
 function repair(item) {
-  if (item) {
-    const newItem = {
-      name: item.name,
-      durability: 100,
-      enhancement: item.enhancement
-    };
-    return newItem;
+  if (item && typeof item === 'object') {
+    console.log(typeof item)
+    const objectProperties = Object.getOwnPropertyNames(item);
+    const objectNames = ["name", "durability", "enhancement"];
+    if (arraysEqual(objectProperties, objectNames)) {
+      const newItem = {
+        name: item.name,
+        durability: 100,
+        enhancement: item.enhancement
+      };
+      return newItem;
+    }
   } else {
     return null;
   }
@@ -28,4 +33,15 @@ function repair(item) {
 
 function succeed(item) {
   return { ...item };
+}
+
+function arraysEqual(a, b) {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length != b.length) return false;
+
+  for (var i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
 }
