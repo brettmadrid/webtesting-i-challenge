@@ -15,7 +15,6 @@ function get(item) {
 
 function repair(item) {
   if (item && typeof item === 'object') {
-    console.log(typeof item)
     const objectProperties = Object.getOwnPropertyNames(item);
     const objectNames = ["name", "durability", "enhancement"];
     if (arraysEqual(objectProperties, objectNames)) {
@@ -32,7 +31,21 @@ function repair(item) {
 }
 
 function succeed(item) {
-  return { ...item };
+  if (item && typeof item === 'object') {
+    const objectProperties = Object.getOwnPropertyNames(item);
+    const objectNames = ["name", "durability", "enhancement"];
+    if (arraysEqual(objectProperties, objectNames)) {
+      const enhanced = item.enhancement < 20 ? item.enhancement + 1 : item.enhancement;
+      const newItem = {
+        name: item.name,
+        durability: item.durability,
+        enhancement: enhanced
+      };
+      return newItem;
+    }
+  } else {
+    return null;
+  }
 }
 
 function arraysEqual(a, b) {
