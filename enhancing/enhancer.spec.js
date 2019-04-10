@@ -1,4 +1,4 @@
-const { repair, succeed } = require("./enhancer.js");
+const { repair, succeed, fail } = require("./enhancer.js");
 // test away!
 // test suite
 describe("the game Succeed/Fail/Repair module", () => {
@@ -100,4 +100,38 @@ describe("the game Succeed/Fail/Repair module", () => {
       expect(succeed(testObject)).toEqual(testObject);
     });
   });
+
+  describe('the fail module', () => {
+    it('should decrease the enhancement by 5 if the existing value is less than 15', () => {
+      const testItem = {
+        name: "Black Wizard",
+        durability: 75,
+        enhancement: 14
+      }
+
+      const returnItem = {
+        name: "Black Wizard",
+        durability: 75,
+        enhancement: 9
+      }
+
+      expect(fail(testItem)).toEqual(returnItem)
+    })
+
+    it('should decrease the enhancement by 1 if the existing value is greater than 16', () => {
+      const testItem = {
+        name: "Black Panther",
+        durability: 75,
+        enhancement: 17
+      }
+
+      const returnItem = {
+        name: "Black Panther",
+        durability: 75,
+        enhancement: 16
+      }
+
+      expect(fail(testItem)).toEqual(returnItem)
+    })
+  })
 });

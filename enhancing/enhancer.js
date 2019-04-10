@@ -6,7 +6,33 @@ module.exports = {
 };
 
 function fail(item) {
-  return { ...item };
+  if (item && typeof item === 'object') {
+
+    const objectProperties = Object.getOwnPropertyNames(item);
+    const objectNames = ["name", "durability", "enhancement"];
+
+    if (arraysEqual(objectProperties, objectNames)) {
+      let decreaseVal = 1;
+      if (item.enhancement < 15) {
+        decreaseVal = 5;
+      } else {
+        if(item.enhancement > 16) {
+          decreaseVal = 1;
+        } else {
+          decreaseVal = 10;
+        }
+      }
+
+      const newItem = {
+        name: item.name,
+        durability: item.durability,
+        enhancement: item.enhancement - decreaseVal
+      };
+      return newItem;
+    }
+  } else {
+    return null;
+  }
 }
 
 function get(item) {
