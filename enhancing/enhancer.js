@@ -1,22 +1,31 @@
 module.exports = {
-  succeed,
   fail,
-  repair,
   get,
+  repair,
+  succeed
 };
-
-function succeed(item) {
-  return { ...item };
-}
 
 function fail(item) {
   return { ...item };
 }
 
-function repair(item) {
+function get(item) {
   return { ...item };
 }
 
-function get(item) {
+function repair(item) {
+  if (item) {
+    const newItem = {
+      name: item.name,
+      durability: 100,
+      enhancement: item.enhancement
+    };
+    return newItem;
+  } else {
+    return null;
+  }
+}
+
+function succeed(item) {
   return { ...item };
 }
