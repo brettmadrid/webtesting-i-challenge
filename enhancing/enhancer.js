@@ -12,21 +12,23 @@ function fail(item) {
     const objectNames = ["name", "durability", "enhancement"];
 
     if (arraysEqual(objectProperties, objectNames)) {
-      let decreaseVal = 1;
+      let durabilityDecrease = 0;
+      let enhanceDecrease = 0;
+      console.log(item)
       if (item.enhancement < 15) {
-        decreaseVal = 5;
+        durabilityDecrease = 5;
       } else {
-        if(item.enhancement > 16) {
-          decreaseVal = 1;
-        } else {
-          decreaseVal = 10;
-        }
+        durabilityDecrease = 10
+      }
+
+      if (item.enhancement > 16) {
+        enhanceDecrease = 1;
       }
 
       const newItem = {
         name: item.name,
-        durability: item.durability,
-        enhancement: item.enhancement - decreaseVal
+        durability: item.durability - durabilityDecrease,
+        enhancement: item.enhancement - enhanceDecrease
       };
       return newItem;
     }

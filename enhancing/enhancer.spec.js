@@ -3,6 +3,8 @@ const { repair, succeed, fail } = require("./enhancer.js");
 // test suite
 describe("the game Succeed/Fail/Repair module", () => {
   // test suite
+
+  // REPAIR MODEL TEST
   describe("the repair module", () => {
     // test
     it("should restore durability to 100", () => {
@@ -53,6 +55,7 @@ describe("the game Succeed/Fail/Repair module", () => {
     });
   });
 
+  // SUCCEED MODEL TEST
   describe("the succeed module", () => {
     it("should raise enhancement by 1", () => {
       const item = {
@@ -101,8 +104,9 @@ describe("the game Succeed/Fail/Repair module", () => {
     });
   });
 
+  // FAIL MODULE TEST
   describe('the fail module', () => {
-    it('should decrease the enhancement by 5 if the existing value is less than 15', () => {
+    it('should decrease the durability by 5 if the existing enhance value is less than 15', () => {
       const testItem = {
         name: "Black Wizard",
         durability: 75,
@@ -111,14 +115,14 @@ describe("the game Succeed/Fail/Repair module", () => {
 
       const returnItem = {
         name: "Black Wizard",
-        durability: 75,
-        enhancement: 9
+        durability: 70,
+        enhancement: 14
       }
 
       expect(fail(testItem)).toEqual(returnItem)
     })
 
-    it('should decrease the enhancement by 1 if the existing value is greater than 16', () => {
+    it('should decrease the enhancement by 1 if the existing enhance value is greater than 16', () => {
       const testItem = {
         name: "Black Panther",
         durability: 75,
@@ -127,11 +131,46 @@ describe("the game Succeed/Fail/Repair module", () => {
 
       const returnItem = {
         name: "Black Panther",
-        durability: 75,
+        durability: 65,
         enhancement: 16
       }
 
       expect(fail(testItem)).toEqual(returnItem)
     })
+
+    it('should decrease the durability by 10 if the existing enhancement value is greater than 14', () => {
+      const testItem = {
+        name: "Black Panther",
+        durability: 75,
+        enhancement: 15
+      }
+
+      const returnItem = {
+        name: "Black Panther",
+        durability: 65,
+        enhancement: 15
+      }
+
+      expect(fail(testItem)).toEqual(returnItem)
+    })
+
+    it("it should return null or undefined when not passed a valid object", () => {
+      const improperObject = {
+        name: "Thor",
+        speed: 50,
+        enhancement: 15
+      };
+
+      //expect(repair([1])).toBe(expected);
+      expect(fail(1)).toBeNull();
+      expect(fail("a")).toBeNull();
+      expect(fail(improperObject)).toBeUndefined();
+      expect(fail([])).toBeUndefined();
+    });
+
+    it("it should return null when called with no arguments", () => {
+      // assert
+      expect(fail()).toBeNull();
+    });
   })
 });
