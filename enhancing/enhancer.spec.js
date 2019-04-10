@@ -53,20 +53,20 @@ describe("the game Succeed/Fail/Repair module", () => {
     });
   });
 
-  describe('the succeed module', () => {
-    it('should raise enhancement by 1', () => {
+  describe("the succeed module", () => {
+    it("should raise enhancement by 1", () => {
       const item = {
         name: "Black Widow",
         durability: 85,
         enhancement: 15
-      }
+      };
 
       // arrange
       const expected = {
         name: "Black Widow",
         durability: 85,
         enhancement: 16
-      }
+      };
 
       // act
       const enhancedItem = succeed(item);
@@ -79,7 +79,7 @@ describe("the game Succeed/Fail/Repair module", () => {
       expect(succeed()).toBeNull();
     });
 
-    it('should return the item passed if not in the proper format', () => {
+    it("should return the item passed if not in the proper format", () => {
       const improperObject = {
         name: "Thor",
         speed: 50,
@@ -89,6 +89,15 @@ describe("the game Succeed/Fail/Repair module", () => {
       expect(succeed(improperObject)).toBeUndefined();
       expect(succeed(1)).toBeNull();
       expect(succeed("abc")).toBeNull();
-    })
-  })
+    });
+
+    it("should not increase enhancement if already at 20", () => {
+      const testObject = {
+        name: "Thor",
+        durability: 99,
+        enhancement: 20
+      };
+      expect(succeed(testObject)).toEqual(testObject);
+    });
+  });
 });
