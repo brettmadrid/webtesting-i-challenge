@@ -1,4 +1,4 @@
-const { repair, succeed, fail } = require("./enhancer.js");
+const { repair, succeed, fail, get } = require("./enhancer.js");
 // test away!
 // test suite
 describe("the game Succeed/Fail/Repair module", () => {
@@ -174,3 +174,50 @@ describe("the game Succeed/Fail/Repair module", () => {
     });
   })
 });
+
+describe('the get module', () => {
+  it('should leave the name alone if enhancement value is 0', () => {
+    const item = {
+      name: "Iron Man",
+      durability: 98,
+      enhancement: 0
+    }
+
+    expect(get(item)).toEqual(item);
+  })
+
+  it('should prefix the name with the enhanced value if enhancement value is > 0', () => {
+    const item = {
+      name: "Iron Man",
+      durability: 98,
+      enhancement: 7
+    }
+
+    const expected = {
+      name: "[+7] Iron Man",
+      durability: 98,
+      enhancement: 7
+    }
+
+    expect(get(item)).toEqual(expected);
+  })
+
+  it("it should return null when called with no arguments", () => {
+    // assert
+    expect(get()).toBeNull();
+  });
+
+  it("it should return null or undefined when not passed a valid object", () => {
+      const improperObject = {
+        name: "Thor",
+        speed: 50,
+        enhancement: 15
+      };
+
+      //expect(repair([1])).toBe(expected);
+      expect(get(1)).toBeNull();
+      expect(get("a")).toBeNull();
+      expect(get(improperObject)).toBeUndefined();
+      expect(get([])).toBeUndefined();
+    });
+})

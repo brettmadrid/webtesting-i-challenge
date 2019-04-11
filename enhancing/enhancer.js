@@ -14,7 +14,6 @@ function fail(item) {
     if (arraysEqual(objectProperties, objectNames)) {
       let durabilityDecrease = 0;
       let enhanceDecrease = 0;
-      console.log(item)
       if (item.enhancement < 15) {
         durabilityDecrease = 5;
       } else {
@@ -38,7 +37,25 @@ function fail(item) {
 }
 
 function get(item) {
-  return { ...item };
+  if (item && typeof item === 'object') {
+    const objectProperties = Object.getOwnPropertyNames(item);
+    const objectNames = ["name", "durability", "enhancement"];
+    if (arraysEqual(objectProperties, objectNames)) {
+      const newName = `[+${item.enhancement}] ${item.name}`;
+      const newObject = {
+        name: newName,
+        durability: item.durability,
+        enhancement: item.enhancement
+      }
+      if (item.enhancement === 0) {
+        return item;
+      } else {
+        return newObject;
+      }
+    }
+  } else {
+    return null;
+  }
 }
 
 function repair(item) {
@@ -86,3 +103,4 @@ function arraysEqual(a, b) {
   }
   return true;
 }
+
